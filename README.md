@@ -16,7 +16,8 @@ This repository contains a collection of Python functions and decorators for web
   - [Get page arguments](#get-page-arg)
   - [Wait after execution](#wait-after-execution)
   - [Check for loaded marker](#check-for-loaded-marker)
-- [How to Test](#how-to-test)
+- [How to Run](#how-to-run)
+- [How to Run Test Cases](#how-to-run-test-cases)
 
 ## Introduction
 
@@ -89,7 +90,17 @@ To use these functions in your Python project, follow these steps:
     This decorator is used to ensure that a specific HTML element (marker) is present and visible on a web page
     before and after executing a decorated function. It is typically used in web automation or testing scripts.
 
-## How to Test
- ```bash
+
+## How to Run
+```
+  1. cp .env.example .env
+  2. Add the website url and json subpart url that you want to scrap 
+  3. cd playwright_plus
+  4. python main.py
+```
+
+## How to Run Test Cases
+ ```
  1. cd playwright_plus
- 2. python test_intercept_json_playwright.py
+ 2.python test_intercept_json_playwright.py
+```
