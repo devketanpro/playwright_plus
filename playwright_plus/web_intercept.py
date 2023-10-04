@@ -1,15 +1,14 @@
 # Built-in imports
-from copy import deepcopy
 import logging
 import time
-
-# Public 3rd party packages imports
-from playwright.sync_api._generated import Page, Locator
+from asyncio.exceptions import CancelledError
+from copy import deepcopy
 
 # Private packages imports
-from playwright_plus import with_page
+from browser_surf import with_page
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
-from asyncio.exceptions import CancelledError
+# Public 3rd party packages imports
+from playwright.sync_api._generated import Locator, Page
 
 # Local functions and relative imports
 # Constants imports
@@ -83,25 +82,27 @@ def intercept_json_playwright(
     time_spent = 0
     nb_refresh = 0
     captcha_to_solve = False
+    result = {}
+    is_error = False
 
     # set up the page to intercept the wanted call
     target_json = {}
 
     def handle_response(response):
         """
-            Handle intercepted HTTP responses.
-    
-            Parameters:
-                - response: The intercepted HTTP response object.
-            Returns:
-                - A dictionary containing the intercepted data or an error message.
-    
-            This function is designed to handle intercepted HTTP responses in the context of the `intercept_json_playwright`
-            function. It checks if the response URL contains the specified `json_url_subpart` and attempts to extract JSON data
-            from the response. If successful, it populates the `target_json` dictionary with the extracted data. If an error
-            occurs during JSON parsing, it populates the `target_json` dictionary with an error message.
-    
-            If the response itself contains an error message, it is also included in the `target_json` dictionary.
+        Handle intercepted HTTP responses.
+
+        Parameters:
+            - response: The intercepted HTTP response object.
+        Returns:
+            - A dictionary containing the intercepted data or an error message.
+
+        This function is designed to handle intercepted HTTP responses in the context of the `intercept_json_playwright`
+        function. It checks if the response URL contains the specified `json_url_subpart` and attempts to extract JSON data
+        from the response. If successful, it populates the `target_json` dictionary with the extracted data. If an error
+        occurs during JSON parsing, it populates the `target_json` dictionary with an error message.
+
+        If the response itself contains an error message, it is also included in the `target_json` dictionary.
         """
         if json_url_subpart in response.url:
             try:
