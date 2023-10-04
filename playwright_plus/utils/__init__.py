@@ -1,1 +1,1 @@
-from .exceptions import catch_TimeoutError
+from .exceptions import catch_timeout_error

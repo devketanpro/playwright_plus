@@ -1,7 +1,7 @@
 from playwright._impl._api_types import TimeoutError as PlaywrightTimeoutError
 
 
-def catch_TimeoutError(
+def catch_timeout_error(
     exception_class: Exception = Exception,
     message: str = None,
 ):
