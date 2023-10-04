@@ -77,6 +77,7 @@ class TestPlaywrightPlus(unittest.TestCase):
         - json_parse_result: Function to extract records from the 'data' key.
         """
         result = request_json_playwright(
+            timeout=9000,
             json_url="https://blog.teclado.com/",
             json_url_subpart="send/event",
             json_detect_error=json_detect_error,

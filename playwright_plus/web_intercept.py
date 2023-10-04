@@ -405,6 +405,7 @@ def intercept_json_playwright_multiple(
 
 def request_json_playwright(
     json_url: str,
+    json_url_subpart: str ,
     json_detect_error: callable = None,
     json_parse_result: callable = None,
     **kwargs,
@@ -414,6 +415,7 @@ def request_json_playwright(
 
     Parameters:
         - json_url (str): The URL of the JSON resource to request.
+        - json_url_subpart (str): The Sub part of the URL of the JSON resource to request.
         - json_detect_error (callable, optional): A custom error detection function that takes the response text
           as input and returns True if an error is detected, or False otherwise. Defaults to None.
         - json_parse_result (callable, optional): A custom JSON parsing function that takes the response text
@@ -425,7 +427,7 @@ def request_json_playwright(
 
     result = intercept_json_playwright(
         page_url=json_url,
-        json_url_subpart=json_url,
+        json_url_subpart=json_url_subpart,
         json_detect_error=json_detect_error,
         json_parse_result=json_parse_result,
         **kwargs,
