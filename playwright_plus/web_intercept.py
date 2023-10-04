@@ -7,6 +7,7 @@ from copy import deepcopy
 # Private packages imports
 from browser_surf import with_page
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
+from utils import catch_timeout_error
 # Public 3rd party packages imports
 from playwright.sync_api._generated import Locator, Page
 
@@ -96,6 +97,7 @@ def construct_handle_response(page: Page, json_url_subpart: str):
 
 
 @with_page(headless=True)
+@catch_timeout_error()
 def intercept_json_playwright(
     page_url: str,
     json_url_subpart: str,
