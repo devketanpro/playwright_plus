@@ -28,6 +28,56 @@ def set_json_to_page(page, buffer):
         }
 
 
+def json_detect_error(result):
+    """
+    A simple error detection function for JSON responses.
+    Parameters:
+        - result (dict): The JSON response result to be checked for errors.
+    Returns:
+        - is_error (bool): True if an error is detected, False otherwise.
+        - result (dict): The original or modified JSON response result.
+    """
+    if "error" in result and result["error"]:
+        return True, result
+    else:
+        return False, result
+
+
+def json_parse_result(result):
+    """
+    A simple JSON parsing function to extract relevant data from a JSON response.
+
+    Parameters:
+        - result (dict): The JSON response result to be parsed.
+
+    Returns:
+        - parsed_data (dict): The parsed data extracted from the JSON response.
+    """
+    return result.get("data", {})  # Extract the "data" field from the JSON response
+
+
+def captcha_solver_function(page):
+    """
+    Attempt to solve a captcha image.
+
+    Parameters:
+        - page: The Selenium WebDriver object representing the web page where the captcha is located.
+    Returns:
+        - A tuple containing two values:
+                 - A boolean indicating whether a refresh is needed (True) or not (False).
+                 - The extracted captcha text if it's successfully solved; None if it's not solved.
+
+    This function attempts to solve a captcha image using simple criteria.
+    It's a complex logic to solve the captcha, and in the future, a more
+    sophisticated implementation may be necessary because it can be a time-consuming task.
+
+    I am currently returning a placeholder/testing value.
+
+    Note: We can use built-in Python libraries like scrapy, or other external libraries for solving the captcha.
+    """
+    return False, None
+
+
 def construct_handle_response(page: Page, json_url_subpart: str):
     def handle_response(response):
         try:
@@ -213,6 +263,8 @@ def intercept_json_playwright_old(
     **kwargs,
 ) -> dict:
     target_json = {}
+    is_error = False
+    result = {}
 
     def handle_response(response):
         try:
