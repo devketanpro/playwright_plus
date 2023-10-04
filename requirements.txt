@@ -1,2 +1,2 @@
 # public libraries
-playwright==1.25.2
+playwright==1.38.0
