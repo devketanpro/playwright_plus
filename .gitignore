@@ -1,0 +1,12 @@
+# folder
+.vscode/
+.venv_playwright_plus
+__pycache__/
+# file
+.env
+.python-version
+*.ipynb
+u.txt
+local_setup.txt
+*._local.txt
+.idea
