@@ -59,6 +59,26 @@ def intercept_json_playwright(
     goto_timeout=30000,
     **kwargs,
 ) -> dict:
+    """
+    Intercept JSON data from a web page using Playwright.
+
+    Parameters:
+    - page_url (str): The URL of the web page to navigate to.
+    - json_url_subpart (str): A subpart of the URL to identify JSON requests.
+    - page (Page, optional): The Playwright Page object. If not provided, it will be obtained from the decorator.
+    - json_detect_error (callable, optional): A callable function to detect errors in the intercepted JSON response.
+    - json_parse_result (callable, optional): A callable function to parse and process the intercepted JSON data.
+    - captcha_solver_function (callable, optional): A callable function to solve captchas if encountered.
+    - max_refresh (int, optional): The maximum number of page refresh attempts.
+    - timeout (int, optional): The total timeout duration in milliseconds.
+    - goto_timeout (int, optional): The timeout for the page.goto method in milliseconds.
+    - response (Response, optional): The Playwright Response object representing the intercepted JSON response.
+    - **kwargs: Additional keyword arguments for configuring the Playwright Page.
+
+    Returns:
+    - dict: A dictionary containing the intercepted JSON data or error information.
+    """
+
     logging.debug("This version of playwright_intercept is deprecated")
     time_spent = 0
     nb_refresh = 0
@@ -68,6 +88,21 @@ def intercept_json_playwright(
     target_json = {}
 
     def handle_response(response):
+        """
+            Handle intercepted HTTP responses.
+    
+            Parameters:
+                - response: The intercepted HTTP response object.
+            Returns:
+                - A dictionary containing the intercepted data or an error message.
+    
+            This function is designed to handle intercepted HTTP responses in the context of the `intercept_json_playwright`
+            function. It checks if the response URL contains the specified `json_url_subpart` and attempts to extract JSON data
+            from the response. If successful, it populates the `target_json` dictionary with the extracted data. If an error
+            occurs during JSON parsing, it populates the `target_json` dictionary with an error message.
+    
+            If the response itself contains an error message, it is also included in the `target_json` dictionary.
+        """
         if json_url_subpart in response.url:
             try:
                 buffer = response.json()
@@ -321,6 +356,20 @@ def request_json_playwright(
     json_parse_result: callable = None,
     **kwargs,
 ) -> dict:
+    """
+    Send an HTTP request to a JSON URL using Playwright and return the JSON response.
+
+    Parameters:
+        - json_url (str): The URL of the JSON resource to request.
+        - json_detect_error (callable, optional): A custom error detection function that takes the response text
+          as input and returns True if an error is detected, or False otherwise. Defaults to None.
+        - json_parse_result (callable, optional): A custom JSON parsing function that takes the response text
+          as input and returns the parsed JSON object. Defaults to None.
+        - **kwargs: Additional keyword arguments to be passed to `intercept_json_playwright`.
+    Returns:
+        dict: A dictionary representing the parsed JSON response.
+    """
+
     result = intercept_json_playwright(
         page_url=json_url,
         json_url_subpart=json_url,
