@@ -18,6 +18,7 @@ This repository contains a collection of Python functions and decorators for web
   - [Check for loaded marker](#check-for-loaded-marker)
 - [How to Run](#how-to-run)
 - [How to Run Test Cases](#how-to-run-test-cases)
+- [Playwright plus ppt](playwright_plus_ppt.pdf)
 
 ## Introduction
 
@@ -30,6 +31,8 @@ To use these functions in your Python project, follow these steps:
 1. Install Playwright and Playwright-Python:
    ```bash
    pip install -r requirements.txt
+   
+Note: Make Sure you have the python version >=3.10
    
 ## Function list
 ### Json Error Detector
