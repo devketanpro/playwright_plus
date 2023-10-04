@@ -80,6 +80,7 @@ def _instantiate_browser_context_page(
     """
 
     # open chromium browser, using specified proxy
+    global browser
     logging.debug(
         f"[playwright_plus] open a browser : headless={headless}, proxy_info={proxy_info.get('server') if isinstance(proxy_info, dict) else None}"
     )
