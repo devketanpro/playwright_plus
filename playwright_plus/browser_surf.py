@@ -80,7 +80,7 @@ def _instantiate_browser_context_page(
     """
 
     # open chromium browser, using specified proxy
-    global browser
+    browser = None
     logging.debug(
         f"[playwright_plus] open a browser : headless={headless}, proxy_info={proxy_info.get('server') if isinstance(proxy_info, dict) else None}"
     )
@@ -94,6 +94,8 @@ def _instantiate_browser_context_page(
     logging.debug(
         f"[playwright_plus] open a browser context: accept_downloads={accept_downloads}, with {len(cookies) if cookies else 0} cookies set(s)"
     )
+    if not browser:
+        return None, None, None
     # The browser.new_context method is used to create a new browser context
     context = browser.new_context(accept_downloads=accept_downloads)
 
